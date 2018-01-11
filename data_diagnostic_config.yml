@@ -1,0 +1,22 @@
+input_stream:
+  #INPUTS STREAM NAMES
+  motionsense_hrv_led_quality_right: "DATA_QUALITY--LED--org.md2k.motionsense--MOTION_SENSE_HRV--RIGHT_WRIST"
+  motionsense_hrv_led_quality_left: "DATA_QUALITY--LED--org.md2k.motionsense--MOTION_SENSE_HRV--LEFT_WRIST"
+  motionsense_hrv_led_right: "LED--org.md2k.motionsense--MOTION_SENSE_HRV--RIGHT_WRIST"
+  motionsense_hrv_led_left: "LED--org.md2k.motionsense--MOTION_SENSE_HRV--LEFT_WRIST"
+
+  # not part of core data-diagnostics
+  phone_screen_touch: "TOUCH_SCREEN--org.md2k.phonesensor--PHONE"
+
+output_stream:
+  #### OUTPUTS STREAM NAMES
+  # sensor failure
+  motionsense_hrv_led_quality_right_: "DATA-DIAGNOSTIC--MOTION_SENSE_HRV--RIGHT_WRIST--SENSOR-FAILURE"
+  motionsense_hrv_left_sensor_failure_marker: "DATA-DIAGNOSTIC--MOTION_SENSE_HRV--LEFT_WRIST--SENSOR-FAILURE"
+
+output:
+  folder_path: "/home/ali/IdeaProjects/CerebralCortex-Reports/reports"
+
+reports:
+  all_available_streams: "all_available_streams"
+  data_yield_per_day: "data_yield_per_day"
