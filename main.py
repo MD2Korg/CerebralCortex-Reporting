@@ -32,7 +32,7 @@ from cerebralcortex.core.util.spark_helper import get_or_create_sc
 from cerebralcortex.core.config_manager.config import Configuration
 from core.data_yield import compute_data_yield
 
-def all_users_data_test(study_name: str, reporting_config, CC):
+def all_users_data_withoutspark(study_name: str, reporting_config, CC):
     """
     Generate report for all participants
     :param study_name:
@@ -61,7 +61,7 @@ def one_user_data(user_id: uuid, reporting_config, CC, spark_context):
         print("User id cannot be empty.")
 
 
-def all_users_data(study_name: str, reporting_config, CC, spark_context):
+def all_users_data(study_name: str, cc_config_file, reporting_config, CC, spark_context):
     """
     Generate report for all participants
     :param study_name:
@@ -72,20 +72,20 @@ def all_users_data(study_name: str, reporting_config, CC, spark_context):
     if all_users:
         rdd = spark_context.parallelize(all_users)
         results = rdd.map(
-            lambda user: generate_report(user["identifier"], CC, reporting_config))
+            lambda user: generate_report(user["identifier"], user["username"], cc_config_file, reporting_config))
         results.count()
     else:
         print(study_name, "- study has 0 users.")
 
 
-def generate_report(user_id: uuid, username: str, CC: CerebralCortex, config: dict):
+def generate_report(user_id: uuid, username: str, cc_config_file, config: dict):
     """
     Contains pipeline execution of all the reports
     :param user_id:
     :param CC:
     :param config:
     """
-
+    CC = CerebralCortex(cc_config_file)
     # get all the streams belong to a participant
     streams = CC.get_user_streams(user_id)
     if streams and len(streams) > 0:
@@ -105,18 +105,22 @@ if __name__ == '__main__':
     parser.add_argument("-cc", "--cc_config_filepath", help="Configuration file path", required=True)
     parser.add_argument("-cr", "--cc_reporting_config_filepath", help="mDebugger configuration file path", required=True)
     parser.add_argument("-sn", "--study_name", help="mDebugger configuration file path", required=True)
+    parser.add_argument("-spm", "--spark_master", help="mDebugger configuration file path", required=False)
     args = vars(parser.parse_args())
 
     CC = CerebralCortex(args["cc_config_filepath"])
 
     # load data reporting configs
     cr_config = Configuration(args["cc_reporting_config_filepath"]).config
-
+    cc_config_file = args["cc_config_filepath"]
     # get/create spark context
-    #spark_context = get_or_create_sc(type="sparkContext")
+    if args["spark_master"]:
+        spark_context = get_or_create_sc(type="sparkContext", master=args["spark_master"])
+    else:
+        spark_context = get_or_create_sc(type="sparkContext")
 
     # run for all the participants in a study
     #all_users_data("mperf", md_config, CC, spark_context)
 
     #TESTING
-    all_users_data_test(args["study_name"], cr_config, CC)
+    all_users_data(args["study_name"], cc_config_file, cr_config, CC, spark_context)

@@ -1,9 +1,20 @@
 input_stream:
-  #INPUTS STREAM NAMES
+  # INPUTS STREAM NAMES
+  # data yield
   motionsense_hrv_led_quality_right: "DATA_QUALITY--LED--org.md2k.motionsense--MOTION_SENSE_HRV--RIGHT_WRIST"
   motionsense_hrv_led_quality_left: "DATA_QUALITY--LED--org.md2k.motionsense--MOTION_SENSE_HRV--LEFT_WRIST"
-  motionsense_hrv_led_right: "LED--org.md2k.motionsense--MOTION_SENSE_HRV--RIGHT_WRIST"
-  motionsense_hrv_led_left: "LED--org.md2k.motionsense--MOTION_SENSE_HRV--LEFT_WRIST"
+
+  # Activity, steps
+  phone_activity: "ACTIVITY_TYPE--org.md2k.phonesensor--PHONE"
+
+  # Calls
+  call_duration: "CU_CALL_DURATION--edu.dartmouth.eureka"
+  call_type: "CU_CALL_TYPE--edu.dartmouth.eureka"
+  screen_on: "CU_IS_SCREEN_ON--edu.dartmouth.eureka"
+  sms_length: "CU_SMS_LENGTH--edu.dartmouth.eureka"
+  sms_type: "CU_SMS_TYPE--edu.dartmouth.eureka"
+
+  
 
   # not part of core data-diagnostics
   phone_screen_touch: "TOUCH_SCREEN--org.md2k.phonesensor--PHONE"

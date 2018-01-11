@@ -55,8 +55,6 @@ def compute_data_yield(stream_id: uuid, username:str, wrist:str, CC: CerebralCor
                 results = process_stream(raw_stream.data)
                 results = str(day)+","+results
                 report.write(results)
-                print(results)
-
 
 
 def process_stream(data: OrderedDict) -> OrderedDict:
