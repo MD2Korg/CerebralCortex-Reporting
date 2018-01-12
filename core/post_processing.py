@@ -41,6 +41,7 @@ def post_process(config: dict):
 
     usernames = []
     dfs = []
+    files = []
     ext = ".csv"
     motionsense_left_led = "_motionsense_left_led"+ext
     motionsense_right_led = "_motionsense_right_led"+ext
@@ -61,21 +62,18 @@ def post_process(config: dict):
         os.mkdir(merged_file_path)
 
     for username in usernames:
-        mll = csv_files_path+username+motionsense_left_led
-        mrl = csv_files_path+username+motionsense_right_led
-        mla = csv_files_path+username+motionsense_left_accel
-        mra = csv_files_path+username+motionsense_right_accel
-        ab = csv_files_path+username+autosense_ble
-        ar = csv_files_path+username+autosense_respiration
+        files.append(csv_files_path+username+motionsense_left_led)
+        files.append(csv_files_path+username+motionsense_right_led)
+        files.append(csv_files_path+username+motionsense_left_accel)
+        files.append(csv_files_path+username+motionsense_right_accel)
+        files.append(csv_files_path+username+autosense_ble)
+        files.append(csv_files_path+username+autosense_respiration)
 
-        files = [mll, mrl, mla, mra, ab, ar]
         for f in files:
             if os.path.exists(f):
                 dfs.append(pd.read_csv(f))
 
         merged = pd.concat([df for df in dfs],axis=1)
-
-
         merged.to_csv(merged_file_path+username+".csv", sep=",")
 
 
