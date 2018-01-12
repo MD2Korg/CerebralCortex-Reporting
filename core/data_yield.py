@@ -31,14 +31,14 @@ from cerebralcortex.cerebralcortex import CerebralCortex
 from cerebralcortex.core.util.streams import get_stream_days
 from cerebralcortex.core.data_manager.raw.stream_handler import DataSet
 
-def compute_data_yield(stream_id: uuid, username:str, wrist:str, CC: CerebralCortex, config: dict):
+def compute_data_yield(stream_id: uuid, username:str, report_stream_name:str, CC: CerebralCortex, config: dict):
     """
     This uses LED quality stream to calculate total good quality data for each data
     LED quality stream has data quality available for 3 second windows
 
     """
     data_dir = config["output"]["folder_path"]+"/"+config["reports"]["data_yield_per_day"]+"/"
-    data_yield_report = data_dir+username+"_"+wrist+".csv"
+    data_yield_report = data_dir + username +"_" + report_stream_name + ".csv"
     if not os.path.exists(data_dir):
         os.mkdir(data_dir)
         os.mknod(data_yield_report)
@@ -46,13 +46,14 @@ def compute_data_yield(stream_id: uuid, username:str, wrist:str, CC: CerebralCor
     stream_days = get_stream_days(stream_id, CC)
 
     with open(data_yield_report, "w") as report:
-        report.write("day, good hours, total hours \n")
+        report.write(report_stream_name+",,,,\n")
+        report.write("day, good hours, total_hours,, \n")
         for day in stream_days:
             # load stream data
-            raw_stream = CC.get_stream(stream_id, day=day, data_type=DataSet.COMPLETE)
+            raw_stream = CC.get_stream(stream_id, day=day, data_type=DataSet.ONLY_DATA)
 
-            if len(raw_stream.data) > 0:
-                results = process_stream(raw_stream.data)
+            if len(raw_stream) > 0:
+                results = process_stream(raw_stream)
                 results = str(day)+","+results
                 report.write(results)
 
@@ -89,7 +90,7 @@ def process_stream(data: OrderedDict) -> OrderedDict:
     total_hours = good+noise+bad+band_off+missing+not_worn+band_loose
 
     return str(seconds_to_hours(good, 3))+","+ \
-           str(seconds_to_hours(total_hours, 3))+"\n"
+           str(seconds_to_hours(total_hours, 3))+",,\n"
 
     # return str(seconds_to_hours(good, 3))+","+ \
     #        str(seconds_to_hours(total_hours, 3))+","+ \

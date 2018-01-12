@@ -92,16 +92,16 @@ def generate_report(user_id: uuid, username: str, cc_config_file, config: dict):
 
         # Data Yield
         if config["input_stream"]["motionsense_hrv_led_quality_left"] in streams:
-            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_led_quality_left"]]["identifier"], username,"left_led", CC, config)
+            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_led_quality_left"]]["identifier"], username,"motionsense_left_led", CC, config)
 
         if config["input_stream"]["motionsense_hrv_led_quality_right"] in streams:
-            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_led_quality_right"]]["identifier"], username, "right_led", CC, config)
+            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_led_quality_right"]]["identifier"], username, "motionsense_right_led", CC, config)
 
         if config["input_stream"]["motionsense_hrv_accel_quality_left"] in streams:
-            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_accel_quality_left"]]["identifier"], username, "left_accel", CC, config)
+            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_accel_quality_left"]]["identifier"], username, "motionsense_left_accel", CC, config)
 
         if config["input_stream"]["motionsense_hrv_accel_quality_right"] in streams:
-            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_accel_quality_right"]]["identifier"], username, "right_accel", CC, config)
+            compute_data_yield(streams[config["input_stream"]["motionsense_hrv_accel_quality_right"]]["identifier"], username, "motionsense_right_accel", CC, config)
 
         if config["input_stream"]["autosense_ble_accel_quality"] in streams:
             compute_data_yield(streams[config["input_stream"]["autosense_ble_accel_quality"]]["identifier"], username, "autosense_ble_accel", CC, config)
