@@ -4,6 +4,12 @@ input_stream:
   motionsense_hrv_led_quality_right: "DATA_QUALITY--LED--org.md2k.motionsense--MOTION_SENSE_HRV--RIGHT_WRIST"
   motionsense_hrv_led_quality_left: "DATA_QUALITY--LED--org.md2k.motionsense--MOTION_SENSE_HRV--LEFT_WRIST"
 
+  motionsense_hrv_accel_quality_right: "DATA_QUALITY--ACCELEROMETER--org.md2k.motionsense--MOTION_SENSE_HRV--RIGHT_WRIST"
+  motionsense_hrv_accel_quality_left: "DATA_QUALITY--ACCELEROMETER--org.md2k.motionsense--MOTION_SENSE_HRV--LEFT_WRIST"
+
+  autosense_ble_accel_quality: "DATA_QUALITY--ACCELEROMETER--org.md2k.autosenseble--AUTOSENSE_BLE--CHEST"
+  autosense_ble_respiration_quality: "DATA_QUALITY--RESPIRATION--org.md2k.autosenseble--AUTOSENSE_BLE--CHEST"
+
   # Activity, steps
   phone_activity: "ACTIVITY_TYPE--org.md2k.phonesensor--PHONE"
 
