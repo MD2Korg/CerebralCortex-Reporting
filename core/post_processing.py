@@ -51,7 +51,7 @@ def post_process(config: dict):
     autosense_respiration = "_autosense_ble_respiration"+ext
 
     for file_name in all_files:
-        usernames.append(file_name.split("/")[-1].split("_")[0])
+        usernames.append(file_name.split("/")[-1].split("_")[0] + "_" + file_name.split("/")[-1].split("_")[1])
     usernames = list(set(usernames))
 
     merged_file_path = csv_files_path+"/merged/"
@@ -61,7 +61,9 @@ def post_process(config: dict):
         shutil.rmtree(merged_file_path)
         os.mkdir(merged_file_path)
 
+
     for username in usernames:
+        files = []
         files.append(csv_files_path+username+motionsense_left_led)
         files.append(csv_files_path+username+motionsense_right_led)
         files.append(csv_files_path+username+motionsense_left_accel)
@@ -69,6 +71,7 @@ def post_process(config: dict):
         files.append(csv_files_path+username+autosense_ble)
         files.append(csv_files_path+username+autosense_respiration)
 
+        dfs = []
         for f in files:
             if os.path.exists(f):
                 dfs.append(pd.read_csv(f))

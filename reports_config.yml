@@ -32,7 +32,7 @@ output_stream:
   motionsense_hrv_left_sensor_failure_marker: "DATA-DIAGNOSTIC--MOTION_SENSE_HRV--LEFT_WRIST--SENSOR-FAILURE"
 
 output:
-  folder_path: "/home/ali/IdeaProjects/CerebralCortex-Reports/reports"
+  folder_path: "/md2k/exports/reports"
 
 reports:
   all_available_streams: "all_available_streams"
